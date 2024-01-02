@@ -29,7 +29,6 @@ export default class DatepickerTime {
         this.opts = opts;
         this.dp = dp;
         let {timeFormat} = this.dp.locale;
-
         if (timeFormat && (timeFormat.match(getWordBoundaryRegExp('h')) || timeFormat.match(getWordBoundaryRegExp('hh')))) {
             this.ampm = true;
         }
@@ -137,7 +136,10 @@ export default class DatepickerTime {
                 this.setMaxTimeFromMaxDate(maxDate);
             }
         }
+
     }
+
+
 
     setCurrentTime(date) {
         let {hours, minutes} = date ? getParsedDate(date) : this;
@@ -159,14 +161,13 @@ export default class DatepickerTime {
 
     setMinTimeFromMinDate(date) {
         let {lastSelectedDate} = this.dp;
-
         this.minHours = date.getHours();
-
         if (lastSelectedDate && lastSelectedDate.getHours() > date.getHours()) {
             this.minMinutes = this.opts.minMinutes;
         } else {
             this.minMinutes = date.getMinutes();
         }
+
     }
 
     setMaxTimeFromMaxDate(date) {
@@ -175,8 +176,10 @@ export default class DatepickerTime {
         this.maxHours = date.getHours();
 
         if (lastSelectedDate && lastSelectedDate.getHours() < date.getHours()) {
+
             this.maxMinutes = this.opts.maxMinutes;
         } else {
+
             this.maxMinutes = date.getMinutes();
         }
     }
@@ -210,6 +213,7 @@ export default class DatepickerTime {
         if (!date) return;
 
         // Check if date is minDate or maxDate and set timepicker's time to corresponding values
+
         this.setMinMaxTime(date);
         this.setCurrentTime(updateTime ? date : false);
 

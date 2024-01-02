@@ -45,7 +45,6 @@ export default class Datepicker {
     }
     constructor(el, opts) {
         this.$el = getEl(el);
-
         if (!this.$el) return;
 
         this.$datepicker = createElement({className: 'air-datepicker'});
@@ -678,7 +677,7 @@ export default class Datepicker {
             if (
                 !this.customHide &&
                 ((isAnimationCompleted && hasTransition) ||
-                (!isAnimationCompleted && !hasTransition))
+                    (!isAnimationCompleted && !hasTransition))
             ) {
                 this._finishHide();
             }
@@ -1095,6 +1094,13 @@ export default class Datepicker {
         let prevOpts = deepMerge({}, this.opts);
         deepMerge(this.opts, newOpts);
 
+        if ( newOpts.maxDate || newOpts.minDate){
+
+            if(this.selectedDates[0]){
+                this.timepicker?.setMinMaxTime(this.selectedDates[0])
+                this.timepicker?.render()
+            }
+        }
         let {timepicker, buttons, range, selectedDates, isMobile} = this.opts;
         let shouldUpdateDOM = this.visible || this.treatAsInline;
 
